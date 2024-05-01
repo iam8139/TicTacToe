@@ -73,34 +73,14 @@ public class TicToeToeImpl implements MatrixGame {
         if (index == 2 || index == 4 || index==6 || index==8) return false;
 
         Value value = getValue(index);
-        if (index == 5) {
-            return (matrix[value.row-1][value.col+1] == matrix[value.row][value.col]
-                    && matrix[value.row+1][value.col-1] == matrix[value.row][value.col]) ||
-                    (matrix[value.row-1][value.col-1] == matrix[value.row][value.col]
-                            && matrix[value.row+1][value.col+1] == matrix[value.row][value.col]);
+        int count1 = 0;
+        int count2 = 0;
+        for (int i = 0; i < 3; i++) {
+            if (matrix[i][i] == matrix[value.row][value.col]) count1++;
+            if (matrix[matrix.length-1-i][i] == matrix[value.row][value.col]) count2++;
         }
 
-        if (index == 1) {
-            return (matrix[value.row+1][value.col+1] == matrix[value.row][value.col] &&
-                    matrix[value.row+2][value.col+2] == matrix[value.row][value.col]);
-        }
-
-        if (index == 3) {
-            return (matrix[value.row+1][value.col-1] == matrix[value.row][value.col] &&
-                    matrix[value.row+2][value.col-2] == matrix[value.row][value.col]);
-        }
-
-        if (index == 7) {
-            return (matrix[value.row-1][value.col+1] == matrix[value.row][value.col] &&
-                    matrix[value.row-2][value.col+2] == matrix[value.row][value.col]);
-        }
-
-        if (index == 9) {
-            return (matrix[value.row-1][value.col-1] == matrix[value.row][value.col] &&
-                    matrix[value.row-2][value.col-2] == matrix[value.row][value.col]);
-        }
-
-        return false;
+        return count1==3 || count2==3;
     }
     private char getFirstCharacter(String username) {
         return Character.toUpperCase(username.charAt(0));
